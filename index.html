@@ -121,7 +121,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12">
 					<ul class="list-unstyled list-inline social text-center">
-            <li class="list"><h3><b>Covid 19 Help Line</b></h3></li>
+            <li class="list"><h3><b>Covid 19 Help Advice Line</b></h3></li>
             <li class="list">
               <a href="tel: 148">
                 <i class="fa fa-phone">
@@ -163,10 +163,7 @@
         else
         {
           for(let i = 0; i < results.data.length - 1; i++){
-            
-            let getDate = new Date(results.data[i]["date"]);
-            let formatDate = DateFormat.format.date(getDate, "dd MMM  yyyy");
-            
+                        
             let gender;
             results.data[i]["gender"] == "M" ? gender = "Male" : gender = "Female";
 
@@ -178,7 +175,7 @@
               '<img id="imgLoad" class="card-img-top" src="https://joeschmoe.io/api/v1/male/' + [i+1+randomNumber] + '" alt="Card image">' +
               '<div class="card-body" style="border-radius: 10px;">' +
               '<h4 class="card-title text-center text-uppercase font-weight-bold"><u>Patient ' + [i+1] + '</u></h4>' +
-              '<label class="card-text text-light">Date: ' + formatDate + '</label><br />' +
+              '<label class="card-text text-light">Date: ' + results.data[i]["date"] + '</label><br />' +
               '<label class="card-text text-light">Gender: ' + gender + '</label><br />' +
               '<label class="card-text text-light">Age: ' + results.data[i]["age"] + '</label><br />' +
               '</div></div></a>'
@@ -200,7 +197,7 @@
               '<img id="imgLoad" class="card-img-top" src="https://joeschmoe.io/api/v1/female/' + [i+1+randomNumber] + '" alt="Card image">' +
               '<div class="card-body" style="border-radius: 10px;">' +
               '<h4 class="card-title text-center text-uppercase font-weight-bold"><u>Patient ' + [i+1] + '</u></h4>' +
-              '<label class="card-text text-light">Date: ' + formatDate + '</label><br />' +
+              '<label class="card-text text-light">Date: ' + results.data[i]["date"] + '</label><br />' +
               '<label class="card-text text-light">Gender: ' + gender + '</label><br />' +
               '<label class="card-text text-light">Age: ' + results.data[i]["age"] + '</label><br />' +
               '</div></div></a>'
