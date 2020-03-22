@@ -19,8 +19,11 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
 
     <script src="js/dateFormat.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>Covid 19 Brunei Statistics</title>
+    <link href="https://fonts.googleapis.com/css?family=Concert+One&display=swap" rel="stylesheet">
+
+    <title>Covid 19 Brunei Patients</title>
 
     <style>
       body::-webkit-scrollbar {
@@ -52,7 +55,7 @@
       }
       .card-body
       {
-        background-color:rgb(170, 170, 170) !important;
+        background-color:#007b5e !important;
       }
       .hover
       {
@@ -61,6 +64,10 @@
       .hover:hover
       {
         transform: scale(1.1); 
+      }
+      .modal-header
+      {
+        background-color: #007b5e !important;
       }
 
       @media only screen and (max-width: 768px) {
@@ -73,8 +80,8 @@
     </style>
 </head>
 <body class="starlight">
-  <div class="container mt-5">
-    <h2 class="text-secondary text-center">Covid 19 Statistics</h2>
+  <div class="container mt-5 mb-5">
+    <h2 class="text-secondary text-center">Covid 19 Brunei Patients</h2>
     <div id="output" class="row"></div>
 
     <div class="modal fade" id="myModal">
@@ -95,8 +102,48 @@
         </div>
       </div>
     </div>
-
   </div>
+
+  <!-- Footer -->
+	<section id="footer">
+		<div class="container">
+			<div class="row text-center text-xs-center text-sm-center text-md-center">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<h5>Helpful links</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="https://www.instagram.com/mohbrunei/"><i class="fa fa-angle-double-right"></i>Ministry of Health Brunei Instagram</a></li>
+						<li><a href="http://www.moh.gov.bn/SitePages/pressreleaseCOVID-19.aspx"><i class="fa fa-angle-double-right"></i>Ministry of Health Brunei Press Releases</a></li>
+						<li><a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"><i class="fa fa-angle-double-right"></i>WHO information about the virus</a></li>
+						<li><a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html"><i class="fa fa-angle-double-right"></i>Centers for Disease Control and Prevention</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+					<ul class="list-unstyled list-inline social text-center">
+            <li class="list"><h3><b>Covid 19 Help Line</b></h3></li>
+            <li class="list">
+              <a href="tel: 148">
+                <i class="fa fa-phone">
+                  <b>148</b>
+                </i>
+              </a>
+            </li>
+					</ul>
+				</div>
+				</hr>
+			</div>	
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+					<p>Source: Press Release from <a class="text-green ml-2" href="http://moh.gov.bn/" target="_blank"><u>Ministry of Health, Brunei.</u></a></p>
+					<p>This website is <b>NOT</b> affiliated with the Ministry of Health, Brunei.</p>
+				</div>
+				</hr>
+			</div>	
+		</div>
+	</section>
+	<!-- ./Footer -->
+
 </body>
 
 <script>
@@ -131,9 +178,9 @@
               '<img id="imgLoad" class="card-img-top" src="https://joeschmoe.io/api/v1/male/' + [i+1+randomNumber] + '" alt="Card image">' +
               '<div class="card-body" style="border-radius: 10px;">' +
               '<h4 class="card-title text-center text-uppercase font-weight-bold"><u>Patient ' + [i+1] + '</u></h4>' +
-              '<label class="card-text">Date: ' + formatDate + '</label><br />' +
-              '<label class="card-text">Gender: ' + gender + '</label><br />' +
-              '<label class="card-text">Age: ' + results.data[i]["age"] + '</label><br />' +
+              '<label class="card-text text-light">Date: ' + formatDate + '</label><br />' +
+              '<label class="card-text text-light">Gender: ' + gender + '</label><br />' +
+              '<label class="card-text text-light">Age: ' + results.data[i]["age"] + '</label><br />' +
               '</div></div></a>'
               
               $(".getId").click(function(){
@@ -153,9 +200,9 @@
               '<img id="imgLoad" class="card-img-top" src="https://joeschmoe.io/api/v1/female/' + [i+1+randomNumber] + '" alt="Card image">' +
               '<div class="card-body" style="border-radius: 10px;">' +
               '<h4 class="card-title text-center text-uppercase font-weight-bold"><u>Patient ' + [i+1] + '</u></h4>' +
-              '<label class="card-text">Date: ' + formatDate + '</label><br />' +
-              '<label class="card-text">Gender: ' + gender + '</label><br />' +
-              '<label class="card-text">Age: ' + results.data[i]["age"] + '</label><br />' +
+              '<label class="card-text text-light">Date: ' + formatDate + '</label><br />' +
+              '<label class="card-text text-light">Gender: ' + gender + '</label><br />' +
+              '<label class="card-text text-light">Age: ' + results.data[i]["age"] + '</label><br />' +
               '</div></div></a>'
 
               $(".getId").click(function(){
