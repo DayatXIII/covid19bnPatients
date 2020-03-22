@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/sample.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/starlight.js"></script>
+    <script src="js/papaparse.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
+
+    <script src="js/dateFormat.js"></script>
+
+    <title>Covid 19 Brunei Statistics</title>
+
+    <style>
+      body::-webkit-scrollbar {
+          display: none;
+      }
+      a
+      {
+        color: inherit !important;
+        font-size: inherit !important;
+      }
+      a:link {
+        text-decoration: none !important;
+      }
+
+      a:visited {
+        text-decoration: none !important;
+      }
+
+      a:hover {
+        text-decoration: none !important;
+      }
+
+      a:active {
+        text-decoration: none !important;
+      }
+      .card {
+        background-color:rgba(255,255,255,0) !important;
+        border: 0;
+      }
+      .card-body
+      {
+        background-color:rgb(170, 170, 170) !important;
+      }
+      .hover
+      {
+        transition: transform .2s;
+      }
+      .hover:hover
+      {
+        transform: scale(1.1); 
+      }
+    </style>
+</head>
+<body class="starlight">
+  <div class="container mt-5">
+    <h2 class="text-secondary text-center">Covid 19 Statistics</h2>
+    <div id="output" class="row"></div>
+
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog modal-dialog-centered modal-l">
+        <div class="modal-content">
+
+          <div class="bg-light modal-header">
+            <h4 id="modalTitle" class="modal-title"></h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div id="modalContent" class="bg-light modal-body text-justify">
+          </div>
+
+          <div class="bg-light modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+<script>
+  $(document).ready(function(){
+
+    let randomNumber = Math.floor(Math.random() * 5) + 1;
+
+    Papa.parse("cases.csv", {
+    header: true,
+    download: true,
+    dynamicTyping: true,
+      complete: function(results) {
+        if(!results)
+        {
+          alert(results.errors);
+        }
+        else
+        {
+          for(let i = 0; i < results.data.length - 1; i++){
+            
+            let getDate = new Date(results.data[i]["date"]);
+            let formatDate = DateFormat.format.date(getDate, "dd MMM  yyyy");
+            
+            let gender;
+            results.data[i]["gender"] == "M" ? gender = "Male" : gender = "Female";
+
+            if(results.data[i]["gender"] == "M")
+            {
+              document.getElementById("output").innerHTML += 
+              '<a id="'+[i+1]+'" class="getId" href="#" data-toggle="modal" data-target="#myModal">' +
+              '<div class="card hover m-2" style="width:200px;">' +
+              '<img id="imgLoad" class="card-img-top" src="https://joeschmoe.io/api/v1/male/' + [i+1+randomNumber] + '" alt="Card image">' +
+              '<div class="card-body" style="border-radius: 10px;">' +
+              '<h4 class="card-title text-center text-uppercase font-weight-bold"><u>Patient ' + [i+1] + '</u></h4>' +
+              '<label class="card-text">Date: ' + formatDate + '</label><br />' +
+              '<label class="card-text">Gender: ' + gender + '</label><br />' +
+              '<label class="card-text">Age: ' + results.data[i]["age"] + '</label><br />' +
+              '</div></div></a>'
+              
+              $(".getId").click(function(){
+                var idOutput = ($(this).attr("id"));
+                var content = results.data[idOutput-1]["description"];
+                (content != null) ? content = results.data[idOutput-1]["description"].replace(/\u00A0/g,' ') : content = "No Description";
+                document.getElementById("modalTitle").innerHTML = "Patient: " + idOutput
+                document.getElementById("modalContent").innerHTML = content.replace(/Case|case/g, 'Patient');
+              });
+
+            }
+            else
+            {
+              document.getElementById("output").innerHTML += 
+              '<a id="'+[i+1]+'" class="getId" href="#" data-toggle="modal" data-target="#myModal">' +
+              '<div class="card hover m-2" style="width:200px">' +
+              '<img id="imgLoad" class="card-img-top" src="https://joeschmoe.io/api/v1/female/' + [i+1+randomNumber] + '" alt="Card image">' +
+              '<div class="card-body" style="border-radius: 10px;">' +
+              '<h4 class="card-title text-center text-uppercase font-weight-bold"><u>Patient ' + [i+1] + '</u></h4>' +
+              '<label class="card-text">Date: ' + formatDate + '</label><br />' +
+              '<label class="card-text">Gender: ' + gender + '</label><br />' +
+              '<label class="card-text">Age: ' + results.data[i]["age"] + '</label><br />' +
+              '</div></div></a>'
+
+              $(".getId").click(function(){
+                var idOutput = ($(this).attr("id"));
+                var content = results.data[idOutput-1]["description"];
+                (content != null) ? content = results.data[idOutput-1]["description"].replace(/\u00A0/g,' ') : content = "No Description";      
+                document.getElementById("modalTitle").innerHTML = "Patient: " + idOutput
+                document.getElementById("modalContent").innerHTML = content.replace(/Case|case/g, 'Patient');
+              });
+
+            }
+          }
+        }
+      }
+    });    
+  });
+</script>
+
+</html>
